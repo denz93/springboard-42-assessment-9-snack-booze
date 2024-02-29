@@ -21,6 +21,11 @@ class SnackOrBoozeApi {
     return result.data
   }
 
+  static async createItem(data) {
+    const url = `${BASE_API_URL}/${data.kind}`
+    const result = await axios.post(url, data)
+    return result.data
+  }
 }
 
 export default SnackOrBoozeApi;

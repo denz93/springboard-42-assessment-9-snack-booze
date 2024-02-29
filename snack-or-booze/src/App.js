@@ -8,10 +8,11 @@ import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import { useDrinks, useSnacks } from "./hooks";
 import NotFound from "./NotFound";
+import NewItem from "./NewItem";
 
 function App() {
-  const {snacks, isLoading: isSnackLoading} = useSnacks()
-  const {drinks, isLoading: isDrinkLoading} = useDrinks()
+  const {snacks, isLoading: isSnackLoading, refetch: refetchSnacks} = useSnacks()
+  const {drinks, isLoading: isDrinkLoading, refetch: refetchDrinks} = useDrinks()
 
   if (isSnackLoading || isDrinkLoading) {
     return <p>Loading &hellip;</p>;
@@ -37,6 +38,12 @@ function App() {
             </Route>
             <Route path="/drinks/:id">
               <MenuItem  items={drinks} cantFind="/drinks" />
+            </Route>
+            <Route path="/new-item">
+              <NewItem onNewItemCreated={() => {
+                refetchDrinks()
+                refetchSnacks()
+              }}/>
             </Route>
             <Route path="*">
               <NotFound></NotFound>
