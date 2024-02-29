@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
@@ -7,6 +7,7 @@ import { Route, Switch } from "react-router-dom";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import { useDrinks, useSnacks } from "./hooks";
+import NotFound from "./NotFound";
 
 function App() {
   const {snacks, isLoading: isSnackLoading} = useSnacks()
@@ -35,10 +36,10 @@ function App() {
               <Menu items={drinks} prefix={'drinks'} title="Drinks Menu" />
             </Route>
             <Route path="/drinks/:id">
-              <MenuItem  items={drinks} cantFind="/snacks" />
+              <MenuItem  items={drinks} cantFind="/drinks" />
             </Route>
-            <Route>
-              <p>Hmmm. I can't seem to find what you want.</p>
+            <Route path="*">
+              <NotFound></NotFound>
             </Route>
           </Switch>
         </main>
